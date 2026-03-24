@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Collection | Zyra Fashion House</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black: #111111;
+      --white: #ffffff;
+      --off-white: #fafaf8;
+      --light-grey: #f4f4f2;
+      --grey-text: #888884;
+      --accent: #c4956a;
+      --accent-dark: #a07548;
+      --sale: #d64f3b;
+      --border: #e0e0da;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
+
+    /* TOP BAR */
+    .top-bar { background: var(--black); color: var(--white); text-align: center; padding: 10px 20px; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 400; }
+
+    /* HEADER */
+    header { position: sticky; top: 0; z-index: 200; background: var(--white); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1280px; margin: 0 auto; padding: 0 40px; height: 72px; }
+    .logo { text-decoration: none; display: flex; flex-direction: column; align-items: flex-start; }
+    .logo-name { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500; letter-spacing: 6px; color: var(--black); text-transform: uppercase; line-height: 1; }
+    .logo-sub { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 400; margin-top: 3px; }
+    nav { display: flex; align-items: center; gap: 28px; }
+    nav a { text-decoration: none; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--black); font-weight: 500; transition: color .25s; }
+    nav a:hover { color: var(--accent); }
+    nav a.active { color: var(--accent); border-bottom: 1.5px solid var(--accent); padding-bottom: 2px; }
+    .nav-dropdown { position: relative; }
+    .nav-dropdown:hover .drop { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+    .drop { position: absolute; top: calc(100% + 16px); left: 50%; transform: translateX(-50%) translateY(-6px); background: var(--white); border: 1px solid var(--border); padding: 12px 0; min-width: 200px; opacity: 0; pointer-events: none; transition: all .25s; box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+    .drop a { display: block; padding: 10px 24px; font-size: 10px; letter-spacing: 1.5px; color: var(--black); }
+    .drop a:hover { background: var(--light-grey); color: var(--accent); }
+    .header-actions { display: flex; align-items: center; gap: 20px; }
+    .header-actions a { text-decoration: none; font-size: 11px; letter-spacing: 1.5px; color: var(--grey-text); font-weight: 400; transition: color .25s; }
+    .header-actions a:hover { color: var(--black); }
+
+    /* CURRENCY BAR */
+    .currency-bar { background: var(--light-grey); border-bottom: 1px solid var(--border); display: flex; justify-content: flex-end; padding: 6px 40px; gap: 4px; }
+    .cur { background: none; border: 1px solid transparent; font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: 1px; padding: 4px 12px; cursor: pointer; color: var(--grey-text); transition: all .2s; }
+    .cur:hover, .cur.active { border-color: var(--black); color: var(--black); background: var(--white); }
+
+    /* CONTAINER */
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+
+    /* PAGE HERO BANNER */
+    .page-banner { background: var(--black); padding: 64px 0; text-align: center; position: relative; overflow: hidden; }
+    .page-banner::before { content: ''; position: absolute; inset: 0; background: url('https://castleandretail.com/assets/img/IMG_2463.JPG.jpeg') center/cover; opacity: 0.18; }
+    .page-banner-inner { position: relative; z-index: 1; }
+    .page-banner .eyebrow { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 14px; }
+    .page-banner h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 64px); font-weight: 700; color: var(--white); line-height: 1.05; margin-bottom: 14px; }
+    .page-banner h1 em { font-style: italic; font-weight: 400; }
+    .page-banner p { font-size: 14px; color: rgba(255,255,255,.6); font-weight: 300; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    /* BREADCRUMB */
+    .breadcrumb { padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .breadcrumb-inner { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--grey-text); letter-spacing: 1px; }
+    .breadcrumb-inner a { text-decoration: none; color: var(--grey-text); transition: color .2s; }
+    .breadcrumb-inner a:hover { color: var(--accent); }
+    .breadcrumb-inner span { color: var(--black); font-weight: 500; }
+
+    /* COLLECTION LAYOUT */
+    .collection-page { padding: 56px 0 100px; }
+    .collection-layout { display: grid; grid-template-columns: 240px 1fr; gap: 48px; align-items: start; }
+
+    /* SIDEBAR FILTERS */
+    .sidebar { position: sticky; top: 100px; }
+    .sidebar-section { margin-bottom: 36px; border-bottom: 1px solid var(--border); padding-bottom: 28px; }
+    .sidebar-section:last-child { border-bottom: none; }
+    .sidebar-title { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600; color: var(--black); margin-bottom: 16px; }
+    .filter-list { display: flex; flex-direction: column; gap: 10px; }
+    .filter-item { display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+    .filter-item label { font-size: 12px; color: var(--grey-text); cursor: pointer; transition: color .2s; font-weight: 300; letter-spacing: .3px; }
+    .filter-item:hover label { color: var(--black); }
+    .filter-item input[type="checkbox"] { appearance: none; width: 14px; height: 14px; border: 1.5px solid var(--border); cursor: pointer; transition: all .2s; flex-shrink: 0; }
+    .filter-item input[type="checkbox"]:checked { background: var(--black); border-color: var(--black); }
+    .filter-count { font-size: 10px; color: var(--grey-text); }
+    .clear-filters { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); cursor: pointer; background: none; border: none; font-family: 'DM Sans', sans-serif; font-weight: 500; padding: 0; margin-top: 4px; transition: opacity .2s; }
+    .clear-filters:hover { opacity: .7; }
+
+    /* SORT & RESULTS BAR */
+    .results-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 12px; }
+    .results-count { font-size: 12px; color: var(--grey-text); }
+    .results-count strong { color: var(--black); }
+    .sort-wrap { display: flex; align-items: center; gap: 10px; }
+    .sort-label { font-size: 11px; color: var(--grey-text); letter-spacing: 1px; }
+    .sort-select { font-family: 'DM Sans', sans-serif; font-size: 11px; border: 1px solid var(--border); background: var(--white); color: var(--black); padding: 8px 12px; cursor: pointer; outline: none; letter-spacing: .5px; }
+    .view-toggle { display: flex; gap: 4px; }
+    .vt-btn { background: none; border: 1px solid var(--border); padding: 8px 10px; cursor: pointer; color: var(--grey-text); transition: all .2s; }
+    .vt-btn.active, .vt-btn:hover { border-color: var(--black); color: var(--black); }
+
+    /* ACTIVE FILTER TAGS */
+    .active-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    .af-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--light-grey); border: 1px solid var(--border); padding: 6px 14px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; font-weight: 500; color: var(--black); }
+    .af-tag button { background: none; border: none; cursor: pointer; color: var(--grey-text); font-size: 14px; line-height: 1; padding: 0; transition: color .2s; }
+    .af-tag button:hover { color: var(--sale); }
+
+    /* PRODUCT GRID */
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px 20px; }
+    .products-grid.grid-4 { grid-template-columns: repeat(4, 1fr); gap: 24px 16px; }
+    .cp-item { cursor: pointer; }
+    .cp-img { position: relative; overflow: hidden; aspect-ratio: 3/4; background: var(--light-grey); margin-bottom: 16px; }
+    .cp-img img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform .65s ease; }
+    .cp-item:hover .cp-img img { transform: scale(1.05); }
+    .cp-badge { position: absolute; top: 14px; left: 14px; font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; font-weight: 600; z-index: 3; }
+    .cp-badge.new { background: var(--black); color: var(--white); }
+    .cp-badge.sale { background: var(--sale); color: var(--white); }
+    .cp-badge.best { background: var(--accent); color: var(--white); }
+    .cp-actions { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 100%); transform: translateY(100%); transition: transform .4s ease; display: flex; gap: 8px; }
+    .cp-item:hover .cp-actions { transform: translateY(0); }
+    .cp-shop-btn { flex: 1; background: var(--white); color: var(--black); border: none; padding: 12px; font-family: 'DM Sans', sans-serif; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: background .25s; }
+    .cp-shop-btn:hover { background: var(--accent); color: var(--white); }
+    .cp-cat { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 6px; }
+    .cp-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; color: var(--black); margin-bottom: 6px; line-height: 1.25; }
+    .cp-price { font-size: 13px; color: var(--black); font-weight: 600; }
+    .cp-price s { font-size: 11px; color: var(--grey-text); margin-right: 6px; font-weight: 400; }
+    .cp-item.hidden { display: none; }
+
+    /* LOAD MORE */
+    .load-more-wrap { text-align: center; margin-top: 60px; padding-top: 48px; border-top: 1px solid var(--border); }
+    .btn-black { display: inline-block; text-decoration: none; background: var(--black); color: var(--white); padding: 15px 52px; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 500; transition: background .3s; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+    .btn-black:hover { background: var(--accent); }
+
+    /* FOOTER */
+    footer { background: var(--black); color: var(--white); padding: 70px 0 36px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 56px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .footer-brand .logo-name { color: var(--white); font-size: 22px; }
+    .footer-brand .logo-sub { color: var(--accent); margin-bottom: 18px; }
+    .footer-brand p { font-size: 12px; color: rgba(255,255,255,.45); line-height: 1.8; font-weight: 300; }
+    .footer-col h4 { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 20px; }
+    .footer-col a { display: block; font-size: 12px; color: rgba(255,255,255,.5); text-decoration: none; margin-bottom: 10px; font-weight: 300; transition: color .25s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 28px; flex-wrap: wrap; gap: 16px; }
+    .footer-bottom p { font-size: 11px; color: rgba(255,255,255,.28); }
+    .footer-curs { display: flex; gap: 8px; }
+    .footer-curs button { background: none; border: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.4); padding: 5px 14px; font-family: 'DM Sans', sans-serif; font-size: 9px; letter-spacing: 1px; cursor: pointer; transition: all .25s; }
+    .footer-curs button:hover, .footer-curs button.active { border-color: var(--accent); color: var(--accent); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .collection-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; display: flex; flex-wrap: wrap; gap: 24px; }
+      .sidebar-section { margin-bottom: 0; border-bottom: none; padding-bottom: 0; border-right: 1px solid var(--border); padding-right: 24px; }
+      .sidebar-section:last-child { border-right: none; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .header-inner { padding: 0 20px; }
+      nav { display: none; }
+      .container { padding: 0 20px; }
+      .products-grid { grid-template-columns: 1fr 1fr; gap: 20px 12px; }
+      .products-grid.grid-4 { grid-template-columns: 1fr 1fr; }
+      .sidebar { display: none; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .currency-bar { padding: 6px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">We Deliver Worldwide &nbsp;·&nbsp; Free Shipping on Orders Above ₦80,000</div>
+
+  <header>
+    <div class="header-inner">
+      <nav>
+        <a href="zyra-fashion-house.html">Home</a>
+        <a href="collection.html" class="active">Collections</a>
+        <a href="board.html">Board of Trustees</a>
+      </nav>
+
+      <a href="zyra-fashion-house.html" class="logo">
+        <span class="logo-name">ZYRA</span>
+        <span class="logo-sub">Fashion House</span>
+      </a>
+
+      <div class="header-actions">
+        <a href="#">Contact Us</a>
+      </div>
+    </div>
+    <div class="currency-bar">
+      <button class="cur active" onclick="setCur(this)">NGN ₦</button>
+      <button class="cur" onclick="setCur(this)">USD $</button>
+    </div>
+  </header>
+
+  <!-- PAGE BANNER -->
+  <div class="page-banner">
+    <div class="page-banner-inner">
+      <span class="eyebrow">Zyra Fashion House</span>
+      <h1>Our <em>Collection</em></h1>
+      <p>Every piece is crafted for the bold, beautiful and modern Nigerian woman. Explore our full range of ready-to-wear styles.</p>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <div class="container">
+      <div class="breadcrumb-inner">
+        <a href="zyra-fashion-house.html">Home</a>
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+        <span>Collection</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLLECTION PAGE BODY -->
+  <div class="collection-page">
+    <div class="container">
+      <div class="collection-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">Category</div>
+            <div class="filter-list">
+              <div class="filter-item">
+                <label for="f-all">All Pieces</label>
+                <input type="checkbox" id="f-all" onchange="sidebarFilter()" checked/>
+              </div>
+              <div class="filter-item">
+                <label for="f-dresses">Dresses</label>
+                <input type="checkbox" id="f-dresses" data-cat="dresses" onchange="sidebarFilter()"/>
+              </div>
+              <div class="filter-item">
+                <label for="f-tops">Tops</label>
+                <input type="checkbox" id="f-tops" data-cat="tops" onchange="sidebarFilter()"/>
+              </div>
+              <div class="filter-item">
+                <label for="f-sets">Sets</label>
+                <input type="checkbox" id="f-sets" data-cat="sets" onchange="sidebarFilter()"/>
+              </div>
+              <div class="filter-item">
+                <label for="f-corp">Corporate</label>
+                <input type="checkbox" id="f-corp" data-cat="corporate" onchange="sidebarFilter()"/>
+              </div>
+            </div>
+            <button class="clear-filters" onclick="clearFilters()" style="margin-top:14px;">Clear All</button>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">Price Range</div>
+            <div class="filter-list">
+              <div class="filter-item">
+                <label for="p1">Under ₦35,000</label>
+                <input type="checkbox" id="p1"/>
+              </div>
+              <div class="filter-item">
+                <label for="p2">₦35,000 – ₦45,000</label>
+                <input type="checkbox" id="p2"/>
+              </div>
+              <div class="filter-item">
+                <label for="p3">Above ₦45,000</label>
+                <input type="checkbox" id="p3"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-title">Availability</div>
+            <div class="filter-list">
+              <div class="filter-item">
+                <label for="av1">In Stock</label>
+                <input type="checkbox" id="av1"/>
+              </div>
+              <div class="filter-item">
+                <label for="av2">New Arrivals</label>
+                <input type="checkbox" id="av2"/>
+              </div>
+              <div class="filter-item">
+                <label for="av3">On Sale</label>
+                <input type="checkbox" id="av3"/>
+              </div>
+            </div>
+          </div>
+
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main>
+
+          <!-- Results + Sort Bar -->
+          <div class="results-bar">
+            <div class="results-count">Showing <strong id="result-count">10</strong> pieces</div>
+            <div class="sort-wrap">
+              <span class="sort-label">Sort by</span>
+              <select class="sort-select">
+                <option>Newest First</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>Bestsellers</option>
+              </select>
+              <div class="view-toggle">
+                <button class="vt-btn active" onclick="setGrid(this,3)" title="3 columns">
+                  <svg width="14" height="14" fill="currentColor" viewBox="0 0 12 12"><rect x="0" y="0" width="3" height="3"/><rect x="4.5" y="0" width="3" height="3"/><rect x="9" y="0" width="3" height="3"/><rect x="0" y="4.5" width="3" height="3"/><rect x="4.5" y="4.5" width="3" height="3"/><rect x="9" y="4.5" width="3" height="3"/></svg>
+                </button>
+                <button class="vt-btn" onclick="setGrid(this,4)" title="4 columns">
+                  <svg width="14" height="14" fill="currentColor" viewBox="0 0 14 14"><rect x="0" y="0" width="2.5" height="2.5"/><rect x="3.8" y="0" width="2.5" height="2.5"/><rect x="7.6" y="0" width="2.5" height="2.5"/><rect x="11.4" y="0" width="2.5" height="2.5"/><rect x="0" y="3.8" width="2.5" height="2.5"/><rect x="3.8" y="3.8" width="2.5" height="2.5"/><rect x="7.6" y="3.8" width="2.5" height="2.5"/><rect x="11.4" y="3.8" width="2.5" height="2.5"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Filter Tags -->
+          <div class="active-filters" id="activeTags"></div>
+
+          <!-- Products Grid -->
+          <div class="products-grid" id="prodGrid">
+
+            <div class="cp-item" data-cat="tops">
+              <div class="cp-img">
+                <img src="https://castleandretail.com/resources/product_images/275578-080226-015506-972.jpg" alt="Lauren Top" loading="lazy"/>
+                <span class="cp-badge new">New</span>
+                <div class="cp-actions"><button class="cp-shop-btn">Shop Now</button></div>
+              </div>
+              <div class="cp-cat">Tops</div>
+              <div class="cp-name">Lauren Top</div>
+              <div class="cp-price">₦40,000</div>
+            </div>
+
+            <div class="cp-item" data-cat="tops">
+              <div class="cp-img">
+                <img src="https://castleandretail.com/resources/product_images/282986-080226-014041-356.JPG" alt="Nadine Top" loading="lazy"/>
+                <div class="cp-actions"><button class="cp-shop-btn">Shop Now</button></div>
+              </div>
+              <div class="cp-cat">Tops</div>
+              <div class="cp-name">Nadine Top</div>
+              <div class="cp-price">₦41,500</div>
+            </div>
+
+            <div class="cp-item" data-cat="corporate">
+              <div class="cp-img">
+                <img src="https://castleandretail.com/resources/product_images/597229-281025-092000-526.JPG" alt="Meg Dress" loading="lazy"/>
+                <span class="cp-badge best">Bestseller</span>
+                <div class="cp-actions"><button class="cp-shop-btn">Shop Now</button></div>
+              </div>
+              <div class="cp-cat">Corporate</div>
+              <div class="cp-name">Meg Dress (Purple)</div>
+              <div class="cp-price">₦43,000</div>
+            </div>
+
+            <div class="cp-item" data-cat="dresses">
+              <div class="cp-img">
+                <img src="https://castleandretail.com/resources/product_images/357524-211025-060519-290.jpg" alt="Adesua Dress" loading="lazy"/>
+                <div class="cp-actions"><button class="cp-shop-btn">Shop Now</button></div>
+              </div>
+              <div class="cp-cat">Dresses</div>
+              <div class="cp-name">Adesua Dress</div>
+              <div class="cp-price">₦42,000</div>
+            </div>
+
+            <div class="cp-item" data-cat="dresses">
+              <div class="cp-img">
+                <img src="https://castleandretail.com/resources/product_images/502250-211025-052419-257.jpg" alt="Layla Dress" loading="lazy"/>
+                <span class="cp-badge new">New</span>
+                <div class="cp-actions"><button class="cp-shop-btn">Shop Now</button></div>
+              </div>
+              <div class="cp-cat">Dresses</div>
+              <div class="cp-name">Layla Dress</div>
+              <div class="cp-price">₦42,000</div>
+            </div>
+
+            <div class="cp-item" data-cat="dresses">
+              <div class="cp-img">
+                <img src="https://castleandretail.com/resources/product_images/459906-100625-031100-182.jpg" alt="Remi Dress Black" loading="lazy"/>
+                <div class="cp-actions"><button class="cp-shop-btn">Shop Now</button></div>
+              </div>
+              <div class="cp-cat">Dresses</div>
+              <div class="cp-name">Remi Dress (Black)</div>
+              <div class="cp-price">₦40,000</div>
+            </div>
+
+            <div class="cp-item" data-cat="dresses">
+              <div class="cp-img">
+                <img src="https://castleandretail.com/resources/product_images/977265-080125-064829-650.jpg" alt="Ejiro Dress Blue" loading="lazy"/>
+                <span class="cp-badge sale">Sale</span>
+                <div class="cp-actions"><button class="cp-shop-btn">Shop Now</button></div>
+              </div>
+              <div class="cp-cat">Dresses</div>
+              <div class="cp-name">Ejiro Dress – Blue</div>
+              <div class="cp-price"><s>₦45,000</s> ₦40,000</div>
+            </div>
+
+            <div class="cp-item" data-cat="dresses">
+              <div class="cp-img">
+                <img src="https://castleandretail.com/resources/product_images/918804-080125-063153-520.JPG" alt="Remi Dress Burgundy" loading="lazy"/>
+                <span class="cp-badge best">Bestseller</span>
+                <div class="cp-actions"><button class="cp-shop-btn">Shop Now</button></div>
+              </div>
+              <div class="cp-cat">Dresses</div>
+              <div class="cp-name">Remi Dress (Burgundy)</div>
+              <div class="cp-price">₦40,000</div>
+            </div>
+
+            <div class="cp-item" data-cat="sets">
+              <div class="cp-img">
+                <img src="https://castleandretail.com/public/IMG_2969.JPG.jpeg" alt="Matching Sets" loading="lazy"/>
+                <div class="cp-actions"><button class="cp-shop-btn">Shop Now</button></div>
+              </div>
+              <div class="cp-cat">Sets</div>
+              <div class="cp-name">Soleil Co-ord Set</div>
+              <div class="cp-price">₦55,000</div>
+            </div>
+
+            <div class="cp-item" data-cat="tops">
+              <div class="cp-img">
+                <img src="https://castleandretail.com/public/IMG_2958.JPG.jpeg" alt="Amara Structured Top" loading="lazy"/>
+                <span class="cp-badge new">New</span>
+                <div class="cp-actions"><button class="cp-shop-btn">Shop Now</button></div>
+              </div>
+              <div class="cp-cat">Tops</div>
+              <div class="cp-name">Amara Structured Top</div>
+              <div class="cp-price">₦38,000</div>
+            </div>
+
+          </div>
+
+          <div class="load-more-wrap">
+            <button class="btn-black">Load More Pieces</button>
+          </div>
+
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="zyra-fashion-house.html" class="logo" style="margin-bottom:16px;">
+            <span class="logo-name">ZYRA</span>
+            <span class="logo-sub">Fashion House</span>
+          </a>
+          <p>We create stylish and modern clothing designed to make you feel confident and unique. Explore our collections and discover fashion that reflects your personality.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a href="zyra-fashion-house.html">Home</a>
+          <a href="collection.html">Collection</a>
+          <a href="board.html">Board of Trustees</a>
+          <a href="#">Contact Us</a>
+        </div>
+        <div class="footer-col">
+          <h4>Information</h4>
+          <a href="#">About Us</a>
+          <a href="#">FAQs</a>
+          <a href="#">Size Guide</a>
+          <a href="#">Shipping &amp; Returns</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+        <div class="footer-col">
+          <h4>Follow Us</h4>
+          <a href="https://www.instagram.com/zyra_fashionhouse?igsh=MTM4bHBqZjE1bmZvMw%3D%3D&utm_source=qr" target="_blank">Instagram</a>
+          <a href="https://www.tiktok.com/@zyrafashionhouse1?_r=1&_t=ZS-94cdvOGryCa" target="_blank">TikTok</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Zyra Fashion House. All rights reserved.</p>
+        <p>© 2026 Developed and Designed by Demmy.</p>
+        <div class="footer-curs">
+          <button class="active" onclick="setCur(this)">NGN ₦</button>
+          <button onclick="setCur(this)">USD $</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function setCur(btn) {
+      btn.closest('div').querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function setGrid(btn, cols) {
+      btn.closest('.view-toggle').querySelectorAll('.vt-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const grid = document.getElementById('prodGrid');
+      grid.className = cols === 4 ? 'products-grid grid-4' : 'products-grid';
+    }
+
+    function sidebarFilter() {
+      const checks = document.querySelectorAll('.sidebar input[data-cat]:checked');
+      const items = document.querySelectorAll('.cp-item');
+      const tags = document.getElementById('activeTags');
+      tags.innerHTML = '';
+      if (checks.length === 0) {
+        items.forEach(i => i.classList.remove('hidden'));
+        document.getElementById('result-count').textContent = items.length;
+        return;
+      }
+      const active = Array.from(checks).map(c => c.dataset.cat);
+      let count = 0;
+      items.forEach(item => {
+        const show = active.includes(item.dataset.cat);
+        item.classList.toggle('hidden', !show);
+        if (show) count++;
+      });
+      document.getElementById('result-count').textContent = count;
+      active.forEach(cat => {
+        const tag = document.createElement('div');
+        tag.className = 'af-tag';
+        tag.innerHTML = `${cat} <button onclick="removeFilter('${cat}')">×</button>`;
+        tags.appendChild(tag);
+      });
+    }
+
+    function removeFilter(cat) {
+      const cb = document.querySelector(`input[data-cat="${cat}"]`);
+      if (cb) { cb.checked = false; sidebarFilter(); }
+    }
+
+    function clearFilters() {
+      document.querySelectorAll('.sidebar input[type="checkbox"]').forEach(c => c.checked = false);
+      sidebarFilter();
+    }
+
+    // Scroll reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; io.unobserve(e.target); }
+      });
+    }, { threshold: 0.06 });
+    document.querySelectorAll('.cp-item').forEach(el => {
+      el.style.opacity='0'; el.style.transform='translateY(20px)'; el.style.transition='opacity .6s ease, transform .6s ease'; io.observe(el);
+    });
+  </script>
+</body>
+</html>
