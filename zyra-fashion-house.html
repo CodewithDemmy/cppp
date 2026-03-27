@@ -27,12 +27,12 @@
 
     /* HEADER */
     header { position: sticky; top: 0; z-index: 200; background: var(--white); border-bottom: 1px solid var(--border); }
-    .header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1280px; margin: 0 auto; padding: 0 40px; height: 72px; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1280px; margin: 0 auto; padding: 0 32px; height: 72px; }
     .logo { text-decoration: none; display: flex; flex-direction: column; align-items: flex-start; }
     .logo-name { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500; letter-spacing: 6px; color: var(--black); text-transform: uppercase; line-height: 1; }
     .logo-sub { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 400; margin-top: 3px; }
-    nav { display: flex; align-items: center; gap: 28px; }
-    nav a { text-decoration: none; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--black); font-weight: 500; transition: color .25s; }
+    nav { display: flex; align-items: center; gap: 20px; }
+    nav a { text-decoration: none; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--black); font-weight: 500; transition: color .25s; white-space: nowrap; }
     nav a:hover { color: var(--accent); }
     nav a.sale-link { color: var(--sale); }
     .nav-dropdown { position: relative; }
@@ -221,6 +221,8 @@
       <nav>
         <a href="#">Home</a>
         <a href="collection.html">Collections</a>
+        <a href="about.html">About Us</a>
+        <a href="events.html">Events</a>
         <a href="board.html">Board of Trustees</a>
       </nav>
 
@@ -229,7 +231,7 @@
       </a>
 
       <div class="header-actions">
-        <a href="#">Contact Us</a>
+        <a href="contact.html">Contact Us</a>
 
 
       </div>
@@ -498,8 +500,10 @@
           <h4>Quick Links</h4>
           <a href="zyra-fashion-house.html">Home</a>
           <a href="collection.html">Collection</a>
+          <a href="about.html">About Us</a>
+          <a href="events.html">Upcoming Events</a>
           <a href="board.html">Board of Trustees</a>
-          <a href="#">Contact Us</a>
+          <a href="contact.html">Contact Us</a>
         </div>
         <div class="footer-col">
           <h4>Information</h4>
@@ -517,7 +521,6 @@
       </div>
       <div class="footer-bottom">
         <p>© 2026 Zyra Fashion House. All rights reserved.</p>
-        <p>© 2026 Developed and Designed by Demmy.</p>
         <div class="footer-curs">
           <button class="active" onclick="setCur(this)">NGN ₦</button>
           <button onclick="setCur(this)">USD $</button>
@@ -525,8 +528,7 @@
       </div>
     </div>
   </footer>
-
-  <script>
+<script>
     function setCur(btn) {
       btn.closest('div').querySelectorAll('button').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');

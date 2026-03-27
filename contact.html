@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us | Zyra Fashion House</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black: #111111;
+      --white: #ffffff;
+      --off-white: #fafaf8;
+      --light-grey: #f4f4f2;
+      --grey-text: #888884;
+      --accent: #c4956a;
+      --accent-dark: #a07548;
+      --border: #e0e0da;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
+
+    /* TOP BAR */
+    .top-bar { background: var(--black); color: var(--white); text-align: center; padding: 10px 20px; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 400; }
+
+    /* HEADER */
+    header { position: sticky; top: 0; z-index: 200; background: var(--white); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1280px; margin: 0 auto; padding: 0 32px; height: 72px; }
+    .logo { text-decoration: none; display: flex; flex-direction: column; align-items: flex-start; }
+    .logo-name { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 500; letter-spacing: 6px; color: var(--black); text-transform: uppercase; line-height: 1; }
+    .logo-sub { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 400; margin-top: 3px; }
+    nav { display: flex; align-items: center; gap: 20px; }
+    nav a { text-decoration: none; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--black); font-weight: 500; transition: color .25s; white-space: nowrap; }
+    nav a:hover { color: var(--accent); }
+    nav a.active { color: var(--accent); border-bottom: 1.5px solid var(--accent); padding-bottom: 2px; }
+    .header-actions a { text-decoration: none; font-size: 11px; letter-spacing: 1.5px; color: var(--grey-text); font-weight: 400; transition: color .25s; }
+    .header-actions a:hover { color: var(--black); }
+
+    /* CURRENCY BAR */
+    .currency-bar { background: var(--light-grey); border-bottom: 1px solid var(--border); display: flex; justify-content: flex-end; padding: 6px 40px; gap: 4px; }
+    .cur { background: none; border: 1px solid transparent; font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: 1px; padding: 4px 12px; cursor: pointer; color: var(--grey-text); transition: all .2s; }
+    .cur:hover, .cur.active { border-color: var(--black); color: var(--black); background: var(--white); }
+
+    /* CONTAINER */
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+
+    /* PAGE BANNER */
+    .page-banner { background: var(--black); padding: 80px 0; text-align: center; position: relative; overflow: hidden; }
+    .page-banner::before { content: ''; position: absolute; inset: 0; background: url('https://castleandretail.com/assets/img/IMG_2463.JPG.jpeg') center/cover; opacity: 0.12; }
+    .page-banner-inner { position: relative; z-index: 1; }
+    .page-banner .eyebrow { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 14px; }
+    .page-banner h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 68px); font-weight: 700; color: var(--white); line-height: 1.05; margin-bottom: 16px; }
+    .page-banner h1 em { font-style: italic; font-weight: 400; color: var(--accent); }
+    .page-banner p { font-size: 14px; color: rgba(255,255,255,.55); font-weight: 300; max-width: 500px; margin: 0 auto; line-height: 1.8; }
+
+    /* BREADCRUMB */
+    .breadcrumb { padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .breadcrumb-inner { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--grey-text); letter-spacing: 1px; }
+    .breadcrumb-inner a { text-decoration: none; color: var(--grey-text); transition: color .2s; }
+    .breadcrumb-inner a:hover { color: var(--accent); }
+    .breadcrumb-inner span { color: var(--black); font-weight: 500; }
+
+    /* SECTION UTILS */
+    .sec-eyebrow { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 10px; display: block; }
+    .sec-divider { width: 48px; height: 1.5px; background: var(--accent); margin-top: 20px; }
+
+    /* ── CONTACT LAYOUT ── */
+    .contact-section { padding: 90px 0 100px; }
+    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+
+    /* LEFT — INQUIRY FORM */
+    .contact-form-wrap h2 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3vw, 40px); font-weight: 600; color: var(--black); line-height: 1.15; margin-bottom: 12px; }
+    .contact-form-wrap h2 em { font-style: italic; font-weight: 400; color: var(--accent); }
+    .contact-form-wrap p { font-size: 13px; color: var(--grey-text); line-height: 1.8; font-weight: 300; margin-bottom: 36px; }
+    .contact-form { display: flex; flex-direction: column; gap: 18px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; color: var(--black); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea { font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 14px 16px; border: 1px solid var(--border); background: var(--off-white); color: var(--black); outline: none; transition: border-color .25s; width: 100%; }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--accent); background: var(--white); }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(136,136,132,.5); font-weight: 300; }
+    .form-group textarea { resize: vertical; min-height: 140px; }
+    .form-group select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; cursor: pointer; }
+    .form-submit { background: var(--black); color: var(--white); border: none; padding: 16px 48px; font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: background .3s; align-self: flex-start; margin-top: 8px; }
+    .form-submit:hover { background: var(--accent); }
+
+    /* RIGHT — CONTACT INFO */
+    .contact-info-wrap { position: sticky; top: 100px; }
+    .contact-info-wrap h2 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3vw, 40px); font-weight: 600; color: var(--black); line-height: 1.15; margin-bottom: 12px; }
+    .contact-info-wrap h2 em { font-style: italic; font-weight: 400; color: var(--accent); }
+    .contact-info-wrap > p { font-size: 13px; color: var(--grey-text); line-height: 1.8; font-weight: 300; margin-bottom: 40px; }
+
+    /* Info Cards */
+    .info-cards { display: flex; flex-direction: column; gap: 0; }
+    .info-card { display: flex; gap: 20px; align-items: flex-start; padding: 24px 0; border-bottom: 1px solid var(--border); }
+    .info-card:first-child { padding-top: 0; }
+    .info-card:last-child { border-bottom: none; }
+    .info-icon { width: 44px; height: 44px; background: var(--black); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--accent); }
+    .info-card-body h4 { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; color: var(--black); margin-bottom: 8px; }
+    .info-card-body p, .info-card-body a { font-size: 13px; color: var(--grey-text); font-weight: 300; line-height: 1.8; text-decoration: none; display: block; transition: color .2s; }
+    .info-card-body a:hover { color: var(--accent); }
+    .info-card-body strong { color: var(--black); font-weight: 500; }
+
+    /* Social Icons */
+    .social-links { display: flex; gap: 12px; margin-top: 10px; }
+    .social-link { display: flex; align-items: center; gap: 8px; text-decoration: none; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--grey-text); font-weight: 500; transition: color .25s; padding: 10px 16px; border: 1px solid var(--border); }
+    .social-link:hover { color: var(--accent); border-color: var(--accent); }
+    .social-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ── OPENING HOURS STRIP ── */
+    .hours-strip { background: var(--off-white); padding: 72px 0; border-top: 1px solid var(--border); }
+    .hours-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .hours-text h2 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3vw, 40px); font-weight: 600; color: var(--black); line-height: 1.15; margin-bottom: 14px; }
+    .hours-text h2 em { font-style: italic; font-weight: 400; color: var(--accent); }
+    .hours-text p { font-size: 13px; color: var(--grey-text); line-height: 1.85; font-weight: 300; max-width: 400px; }
+    .hours-table { display: flex; flex-direction: column; gap: 0; }
+    .hours-row { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--border); }
+    .hours-row:first-child { padding-top: 0; }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-day { font-size: 12px; font-weight: 500; color: var(--black); letter-spacing: .5px; }
+    .hours-time { font-size: 12px; color: var(--grey-text); font-weight: 300; }
+    .hours-time.closed { color: var(--accent); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; font-size: 10px; }
+    .hours-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--black); color: var(--white); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; padding: 6px 14px; margin-top: 20px; font-weight: 500; }
+    .hours-badge::before { content: ''; width: 6px; height: 6px; background: #4caf50; border-radius: 50%; display: inline-block; }
+
+    /* ── MAP PLACEHOLDER ── */
+    .map-section { padding: 0; }
+    .map-container { position: relative; height: 420px; background: var(--light-grey); overflow: hidden; }
+    .map-container iframe { width: 100%; height: 100%; border: none; display: block; }
+    .map-overlay-card { position: absolute; top: 32px; left: 40px; background: var(--white); padding: 28px 32px; box-shadow: 0 8px 40px rgba(0,0,0,.12); max-width: 320px; z-index: 2; }
+    .map-overlay-card h4 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--black); margin-bottom: 12px; }
+    .map-overlay-card p { font-size: 12px; color: var(--grey-text); line-height: 1.8; font-weight: 300; }
+    .map-overlay-card .accent-line { width: 32px; height: 2px; background: var(--accent); margin-bottom: 14px; }
+
+    /* FOOTER */
+    footer { background: var(--black); color: var(--white); padding: 70px 0 36px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 56px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .footer-brand .logo-name { color: var(--white); font-size: 22px; }
+    .footer-brand .logo-sub { color: var(--accent); margin-bottom: 18px; }
+    .footer-brand p { font-size: 12px; color: rgba(255,255,255,.45); line-height: 1.8; font-weight: 300; }
+    .footer-col h4 { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 20px; }
+    .footer-col a { display: block; font-size: 12px; color: rgba(255,255,255,.5); text-decoration: none; margin-bottom: 10px; font-weight: 300; transition: color .25s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 28px; flex-wrap: wrap; gap: 16px; }
+    .footer-bottom p { font-size: 11px; color: rgba(255,255,255,.28); }
+    .footer-curs { display: flex; gap: 8px; }
+    .footer-curs button { background: none; border: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.4); padding: 5px 14px; font-family: 'DM Sans', sans-serif; font-size: 9px; letter-spacing: 1px; cursor: pointer; transition: all .25s; }
+    .footer-curs button:hover, .footer-curs button.active { border-color: var(--accent); color: var(--accent); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 60px; }
+      .contact-info-wrap { position: static; }
+      .hours-inner { grid-template-columns: 1fr; gap: 48px; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .header-inner { padding: 0 20px; }
+      nav { display: none; }
+      .container { padding: 0 20px; }
+      .form-row { grid-template-columns: 1fr; }
+      .map-overlay-card { left: 20px; top: 20px; max-width: calc(100% - 40px); }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .currency-bar { padding: 6px 20px; }
+    }
+
+    /* ANIMATION */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">We Deliver Worldwide &nbsp;·&nbsp; Free Shipping on Orders Above ₦80,000</div>
+
+  <header>
+    <div class="header-inner">
+      <nav>
+        <a href="zyra-fashion-house.html">Home</a>
+        <a href="collection.html">Collections</a>
+        <a href="about.html">About Us</a>
+        <a href="events.html">Events</a>
+        <a href="board.html">Board of Trustees</a>
+        <a href="contact.html" class="active">Contact Us</a>
+      </nav>
+      <a href="zyra-fashion-house.html" class="logo">
+        <span class="logo-name">ZYRA</span>
+        <span class="logo-sub">Fashion House</span>
+      </a>
+      <div class="header-actions">
+        &nbsp;
+      </div>
+    </div>
+    <div class="currency-bar">
+      <button class="cur active" onclick="setCur(this)">NGN ₦</button>
+      <button class="cur" onclick="setCur(this)">USD $</button>
+    </div>
+  </header>
+
+  <!-- PAGE BANNER -->
+  <div class="page-banner">
+    <div class="page-banner-inner">
+      <span class="eyebrow">We'd Love to Hear From You</span>
+      <h1>Get in <em>Touch</em></h1>
+      <p>Have a question, inquiry or just want to say hello? Reach out to the Zyra Fashion House team — we're always happy to help.</p>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <div class="container">
+      <div class="breadcrumb-inner">
+        <a href="zyra-fashion-house.html">Home</a>
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+        <span>Contact Us</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-layout">
+
+        <!-- INQUIRY FORM -->
+        <div class="contact-form-wrap">
+          <span class="sec-eyebrow">Send a Message</span>
+          <h2>Send Us an <em>Inquiry</em></h2>
+          <p>Fill out the form below and a member of our team will get back to you as soon as possible — usually within 24 hours.</p>
+
+          <form class="contact-form" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" placeholder="e.g. Amara"/>
+              </div>
+              <div class="form-group">
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname" placeholder="e.g. Okonkwo"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" placeholder="yourname@email.com"/>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" placeholder="+234 800 000 0000"/>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <select id="subject">
+                <option value="" disabled selected>Select a subject</option>
+                <option>Order Inquiry</option>
+                <option>Product Information</option>
+                <option>Shipping & Delivery</option>
+                <option>Returns & Exchanges</option>
+                <option>Events & Collaborations</option>
+                <option>General Inquiry</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" placeholder="Write your message here..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">Send Message</button>
+          </form>
+        </div>
+
+        <!-- CONTACT INFO -->
+        <div class="contact-info-wrap">
+          <span class="sec-eyebrow">Our Details</span>
+          <h2>Contact <em>Information</em></h2>
+          <p>You can reach us through any of the channels below. We look forward to connecting with you.</p>
+
+          <div class="info-cards">
+
+            <!-- Phone -->
+            <div class="info-card">
+              <div class="info-icon">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+              </div>
+              <div class="info-card-body">
+                <h4>Phone Number</h4>
+                <a href="tel:+2348001234567">+234 800 123 4567</a>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="info-card">
+              <div class="info-icon">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+              </div>
+              <div class="info-card-body">
+                <h4>Email Address</h4>
+                <a href="mailto:zyrafashionhouse1@gmail.com">zyrafashionhouse1@gmail.com</a>
+              </div>
+            </div>
+
+            <!-- Address -->
+            <div class="info-card">
+              <div class="info-icon">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+              </div>
+              <div class="info-card-body">
+                <h4>Physical Address</h4>
+                <p><strong>Zyra Fashion House Boutique</strong></p>
+                <p>Suite 5, Style Plaza</p>
+                <p>24 Runway Crescent</p>
+                <p>Maitama, Abuja</p>
+                <p>Federal Capital Territory, Nigeria</p>
+              </div>
+            </div>
+
+            <!-- Social Media -->
+            <div class="info-card">
+              <div class="info-icon">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"/></svg>
+              </div>
+              <div class="info-card-body">
+                <h4>Social Media</h4>
+                <div class="social-links">
+                  <a href="https://www.instagram.com/zyra_fashionhouse?igsh=MTM4bHBqZjE1bmZvMw%3D%3D&utm_source=qr" target="_blank" class="social-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                    Instagram
+                  </a>
+                  <a href="https://www.tiktok.com/@zyrafashionhouse1?_r=1&_t=ZS-94cdvOGryCa" target="_blank" class="social-link">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+                    TikTok
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- OPENING HOURS -->
+  <div class="hours-strip">
+    <div class="container">
+      <div class="hours-inner">
+        <div class="hours-text">
+          <span class="sec-eyebrow">When We're Open</span>
+          <h2>Opening <em>Hours</em></h2>
+          <p>Visit us at our boutique in Maitama, Abuja. Our team is always on hand to help you find the perfect piece, answer your questions and give you a truly personal Zyra experience.</p>
+          <div class="hours-badge">Currently Open for Business</div>
+        </div>
+        <div class="hours-table">
+          <div class="hours-row">
+            <span class="hours-day">Monday</span>
+            <span class="hours-time">9:00 AM – 7:00 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day">Tuesday</span>
+            <span class="hours-time">9:00 AM – 7:00 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day">Wednesday</span>
+            <span class="hours-time">9:00 AM – 7:00 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day">Thursday</span>
+            <span class="hours-time">9:00 AM – 7:00 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day">Friday</span>
+            <span class="hours-time">9:00 AM – 7:00 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day">Saturday</span>
+            <span class="hours-time">10:00 AM – 6:00 PM</span>
+          </div>
+          <div class="hours-row">
+            <span class="hours-day">Sunday</span>
+            <span class="hours-time closed">Closed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAP -->
+  <div class="map-section">
+    <div class="map-container">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3939.7!2d7.4892!3d9.0832!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjM0!5e0!3m2!1sen!2sng!4v1!5m2!1sen!2sng"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Zyra Fashion House Location — Maitama, Abuja">
+      </iframe>
+      <div class="map-overlay-card">
+        <div class="accent-line"></div>
+        <h4>Zyra Fashion House Boutique</h4>
+        <p>Suite 5, Style Plaza<br/>24 Runway Crescent<br/>Maitama, Abuja<br/>FCT, Nigeria</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="zyra-fashion-house.html" class="logo" style="margin-bottom:16px;">
+            <span class="logo-name">ZYRA</span>
+            <span class="logo-sub">Fashion House</span>
+          </a>
+          <p>We create stylish and modern clothing designed to make you feel confident and unique. Explore our collections and discover fashion that reflects your personality.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a href="zyra-fashion-house.html">Home</a>
+          <a href="collection.html">Collection</a>
+          <a href="about.html">About Us</a>
+          <a href="events.html">Upcoming Events</a>
+          <a href="board.html">Board of Trustees</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+        <div class="footer-col">
+          <h4>Information</h4>
+          <a href="#">FAQs</a>
+          <a href="#">Size Guide</a>
+          <a href="#">Shipping &amp; Returns</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+        <div class="footer-col">
+          <h4>Follow Us</h4>
+          <a href="https://www.instagram.com/zyra_fashionhouse?igsh=MTM4bHBqZjE1bmZvMw%3D%3D&utm_source=qr" target="_blank">Instagram</a>
+          <a href="https://www.tiktok.com/@zyrafashionhouse1?_r=1&_t=ZS-94cdvOGryCa" target="_blank">TikTok</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Zyra Fashion House. All rights reserved.</p>
+        <div class="footer-curs">
+          <button class="active" onclick="setCur(this)">NGN ₦</button>
+          <button onclick="setCur(this)">USD $</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function setCur(btn) {
+      btn.closest('div').querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = '#4caf50';
+      setTimeout(() => { btn.textContent = 'Send Message'; btn.style.background = ''; }, 3000);
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; io.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.info-card, .hours-row').forEach(el => {
+      el.style.opacity='0'; el.style.transform='translateY(16px)'; el.style.transition='opacity .55s ease, transform .55s ease'; io.observe(el);
+    });
+  </script>
+</body>
+</html>
